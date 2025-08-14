@@ -9,14 +9,15 @@
 </head>
 <body>
   <div class="container">
-    <div class="setup-wrapper">
-      <h2 class="title" id="os-title">Настройка</h2>
-      
-      <div class="gear-icon">⚙️</div>
+    <div class="card">
+      <h2 id="os-title">Настройка</h2>
 
-      <div class="bottom-buttons">
-        <button class="btn btn-primary" onclick="thisDevice()">Установка на этом устройстве</button>
-        <button class="btn btn-secondary" onclick="otherDevice()">Установка на другом устройстве</button>
+      <button id="thisDeviceBtn" class="btn btn-primary">На этом устройстве</button>
+      <button id="otherDeviceBtn" class="btn btn-primary">На другом устройстве</button>
+
+      <!-- Кнопка Назад -->
+      <div class="back-btn-container">
+        <button class="btn btn-secondary" onclick="window.history.back()">🔙 Назад</button>
       </div>
     </div>
   </div>
@@ -25,26 +26,12 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    function getOSName() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      if (/windows phone/i.test(userAgent)) return "Windows Phone";
-      if (/android/i.test(userAgent)) return "Android";
-      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "iOS";
-      if (/Macintosh/i.test(userAgent)) return "MacOS";
-      if (/Windows/i.test(userAgent)) return "Windows";
-      return "Вашей ОС";
-    }
+    const thisBtn = document.getElementById("thisDeviceBtn");
+    const otherBtn = document.getElementById("otherDeviceBtn");
 
-    document.getElementById("os-title").textContent =
-      `Настройка на ${getOSName()}`;
-
-    function thisDevice() {
-      alert("Открыть инструкцию для текущей ОС");
-    }
-
-    function otherDevice() {
-      alert("Выбрать другую ОС для настройки");
-    }
+    if (thisBtn) thisBtn.addEventListener("click", () => alert("Инструкция для текущего устройства"));
+    if (otherBtn) otherBtn.addEventListener("click", () => alert("Инструкция для другого устройства"));
   </script>
+  <script src="main.js" defer></script>
 </body>
 </html>
