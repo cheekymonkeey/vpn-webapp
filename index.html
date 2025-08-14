@@ -14,10 +14,10 @@
         Подписка активна до: <span id="sub-date">15.08.2025</span>
       </div>
 
-      <button class="btn btn-primary" onclick="window.location.href = 'plans.html'">
+      <button class="btn btn-primary" onclick="window.location.href='plans.html'">
         🔐 Купить подписку
       </button>
-      <button id="guideBtn" class="btn" onclick="window.location.href = 'setup.html'">
+      <button id="guideBtn" class="btn" onclick="window.location.href='setup.html'">
         📘 Настройка и установка
       </button>
 
@@ -25,21 +25,12 @@
         <button class="btn btn-secondary" onclick="support()">📞 Поддержка</button>
         <button class="btn btn-secondary" onclick="profile()">👤 Профиль</button>
       </div>
+
+      <!-- Контейнер для кнопки Назад, если нужно -->
+      <div class="back-btn-container" style="margin-top: 10px;"></div>
     </div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    function support() { alert("Саппорт в Telegram: @support"); }
-    function guide() { alert("Здесь будет гайд по установке"); }
-    function profile() {
-      const user = tg.initDataUnsafe.user;
-      alert(`Вы: ${user?.first_name ?? 'Гость'}`);
-    }
-    document.getElementById("sub-date").textContent = "до 15.08.2025";
-  </script>
   <script src="main.js" defer></script>
 </body>
 </html>

@@ -13,10 +13,10 @@
       <h2 class="title">Выберите тариф</h2>
 
       <div class="tariff-options">
-        <button class="tariff-btn" onclick="selectPlan('1 месяц')">1 месяц</button>
-        <button class="tariff-btn" onclick="selectPlan('3 месяца')">3 месяца</button>
-        <button class="tariff-btn" onclick="selectPlan('6 месяцев')">6 месяцев</button>
-        <button class="tariff-btn" onclick="selectPlan('12 месяцев')">12 месяцев</button>
+        <button class="tariff-btn">1 месяц</button>
+        <button class="tariff-btn">3 месяца</button>
+        <button class="tariff-btn">6 месяцев</button>
+        <button class="tariff-btn">12 месяцев</button>
       </div>
 
       <div class="range-block">
@@ -24,41 +24,13 @@
         <input type="range" id="deviceRange" min="1" max="5" value="1" />
       </div>
 
-      <!-- Кнопка Назад -->
-      <div class="back-btn-container">
-        <button class="btn btn-secondary" onclick="window.history.back()">🔙 Назад</button>
-      </div>
+      <button class="btn btn-primary" id="proceedBtn">Продолжить</button>
 
-      <button class="btn btn-primary" onclick="proceed()">Продолжить</button>
+      <!-- Контейнер для кнопки Назад -->
+      <div class="back-btn-container" style="margin-top: 10px;"></div>
     </div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    let selectedPlan = null;
-    let deviceCount = 1;
-
-    function selectPlan(plan) {
-      selectedPlan = plan;
-      document.querySelectorAll('.tariff-btn').forEach(btn => {
-        btn.classList.remove('selected');
-        if (btn.textContent === plan) btn.classList.add('selected');
-      });
-    }
-
-    document.getElementById('deviceRange').addEventListener('input', (e) => {
-      deviceCount = e.target.value;
-      document.getElementById('deviceCount').textContent = deviceCount;
-    });
-
-    function proceed() {
-      if (!selectedPlan) { alert("Пожалуйста, выберите тариф."); return; }
-      alert(`Тариф: ${selectedPlan}\nУстройств: ${deviceCount}`);
-      // Здесь можно отправить данные на сервер или перейти к оплате
-    }
-  </script>
   <script src="main.js" defer></script>
 </body>
 </html>

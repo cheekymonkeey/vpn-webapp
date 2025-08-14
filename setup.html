@@ -15,23 +15,11 @@
       <button id="thisDeviceBtn" class="btn btn-primary">На этом устройстве</button>
       <button id="otherDeviceBtn" class="btn btn-primary">На другом устройстве</button>
 
-      <!-- Кнопка Назад -->
-      <div class="back-btn-container">
-        <button class="btn btn-secondary" onclick="window.history.back()">🔙 Назад</button>
-      </div>
+      <!-- Контейнер для кнопки Назад -->
+      <div class="back-btn-container" style="margin-top: 10px;"></div>
     </div>
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    const thisBtn = document.getElementById("thisDeviceBtn");
-    const otherBtn = document.getElementById("otherDeviceBtn");
-
-    if (thisBtn) thisBtn.addEventListener("click", () => alert("Инструкция для текущего устройства"));
-    if (otherBtn) otherBtn.addEventListener("click", () => alert("Инструкция для другого устройства"));
-  </script>
   <script src="main.js" defer></script>
 </body>
 </html>

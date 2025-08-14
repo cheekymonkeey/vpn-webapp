@@ -1,7 +1,12 @@
+// main.js
+
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// Определяем ОС
+let selectedPlan = null;
+let deviceCount = 1;
+
+// Определение ОС пользователя
 function getOSName() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   if (/windows phone/i.test(userAgent)) return "Windows Phone";
@@ -12,74 +17,104 @@ function getOSName() {
   return "Вашей ОС";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // === index.html ===
-  const guideBtn = document.getElementById("guideBtn");
-  const buyBtn = document.getElementById("buyBtn");
-  const supportBtn = document.getElementById("supportBtn");
-  const profileBtn = document.getElementById("profileBtn");
+// Добавление кнопки "Назад"
+function addBackButton() {
+  const container = document.querySelector('.back-btn-container');
+  if (!container) return;
+  // Не добавляем кнопку на главную страницу
+  if (document.querySelector('.subscription-status')) return;
 
-  if (guideBtn) guideBtn.textContent = `📘 Настройка и установка (${getOSName()})`;
-  if (buyBtn) buyBtn.addEventListener("click", () => location.href = "plans.html");
-  if (guideBtn) guideBtn.addEventListener("click", () => location.href = "setup.html");
-  if (supportBtn) supportBtn.addEventListener("click", () => alert("Саппорт: @support"));
-  if (profileBtn) profileBtn.addEventListener("click", () => {
+  const btn = document.createElement('button');
+  btn.className = 'btn btn-secondary';
+  btn.textContent = '⬅ Назад';
+  btn.onclick = () => window.history.back();
+  container.appendChild(btn);
+}
+
+
+// Обновление кнопки "Настройка и установка" на главной странице
+function updateGuideBtn() {
+  const guideBtn = document.getElementById("guideBtn");
+  if (guideBtn) {
+    guideBtn.innerText = `📘 Настройка и установка (${getOSName()})`;
+  }
+}
+
+// Страница index.html
+function initIndexPage() {
+  addBackButton();
+
+  // Поддержка
+  const supportBtn = document.querySelector(".row-buttons .btn-secondary:nth-child(1)");
+  if (supportBtn) supportBtn.onclick = () => alert("Саппорт в Telegram: @support");
+
+  // Профиль
+  const profileBtn = document.querySelector(".row-buttons .btn-secondary:nth-child(2)");
+  if (profileBtn) profileBtn.onclick = () => {
     const user = tg.initDataUnsafe.user;
     alert(`Вы: ${user?.first_name ?? 'Гость'}`);
-  });
+  };
 
-  // === plans.html ===
-  const tariffButtons = document.querySelectorAll(".tariff-btn");
-  let selectedPlan = null;
+  // Пример даты подписки
+  const subDate = document.getElementById("sub-date");
+  if (subDate) subDate.textContent = "до 15.08.2025";
+}
 
-  tariffButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      tariffButtons.forEach(b => b.classList.remove("selected"));
-      btn.classList.add("selected");
+// Страница plans.html
+function initPlansPage() {
+  addBackButton();
+
+  // Кнопки выбора тарифа
+  document.querySelectorAll('.tariff-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       selectedPlan = btn.textContent;
+      document.querySelectorAll('.tariff-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
     });
   });
 
-  const deviceRange = document.getElementById("deviceRange");
-  const deviceCount = document.getElementById("deviceCount");
-  if (deviceRange && deviceCount) {
-    deviceRange.addEventListener("input", e => {
-      deviceCount.textContent = e.target.value;
+  // Ползунок устройств
+  const range = document.getElementById('deviceRange');
+  const deviceCountLabel = document.getElementById('deviceCount');
+  if (range && deviceCountLabel) {
+    range.addEventListener('input', (e) => {
+      deviceCount = e.target.value;
+      deviceCountLabel.textContent = deviceCount;
     });
   }
 
-  const proceedBtn = document.getElementById("proceedBtn");
+  // Кнопка Продолжить
+  const proceedBtn = document.getElementById('proceedBtn');
   if (proceedBtn) {
-    proceedBtn.addEventListener("click", async () => {
+    proceedBtn.addEventListener('click', () => {
       if (!selectedPlan) {
-        alert("Выберите тариф");
+        alert("Пожалуйста, выберите тариф.");
         return;
       }
-
-      const devices = deviceRange ? deviceRange.value : 1;
-      const payload = {
-        plan: selectedPlan,
-        devices: devices,
-        user_id: tg.initDataUnsafe.user?.id
-      };
-
-      try {
-        const res = await fetch("/api/select-plan", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          alert(`Тариф сохранён! ID заказа: ${data.order_id}`);
-        } else {
-          alert("Ошибка при отправке данных");
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Сервер недоступен");
-      }
+      alert(`Вы выбрали тариф: ${selectedPlan}\nУстройств: ${deviceCount}`);
+      // Здесь можно отправить данные на сервер через API
     });
   }
+}
+
+// Страница setup.html
+function initSetupPage() {
+  addBackButton();
+
+  const thisBtn = document.getElementById("thisDeviceBtn");
+  const otherBtn = document.getElementById("otherDeviceBtn");
+
+  if (thisBtn) thisBtn.addEventListener('click', () => alert("Инструкция для текущего устройства"));
+  if (otherBtn) otherBtn.addEventListener('click', () => alert("Инструкция для другого устройства"));
+
+  const setupTitle = document.getElementById("os-title");
+  if (setupTitle) setupTitle.textContent = `Настройка на ${getOSName()}`;
+}
+
+// Инициализация страницы
+window.addEventListener('DOMContentLoaded', () => {
+  updateGuideBtn();
+  if (document.getElementById('proceedBtn')) initPlansPage();
+  if (document.getElementById('thisDeviceBtn')) initSetupPage();
+  if (document.querySelector('.subscription-status')) initIndexPage();
 });
