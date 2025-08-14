@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Настройка VPN</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="setup-wrapper">
+      <h2 class="title" id="os-title">Настройка</h2>
+      
+      <div class="gear-icon">⚙️</div>
+
+      <div class="bottom-buttons">
+        <button class="btn btn-primary" onclick="thisDevice()">Установка на этом устройстве</button>
+        <button class="btn btn-secondary" onclick="otherDevice()">Установка на другом устройстве</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    function getOSName() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      if (/windows phone/i.test(userAgent)) return "Windows Phone";
+      if (/android/i.test(userAgent)) return "Android";
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) return "iOS";
+      if (/Macintosh/i.test(userAgent)) return "MacOS";
+      if (/Windows/i.test(userAgent)) return "Windows";
+      return "Вашей ОС";
+    }
+
+    document.getElementById("os-title").textContent =
+      `Настройка на ${getOSName()}`;
+
+    function thisDevice() {
+      alert("Открыть инструкцию для текущей ОС");
+    }
+
+    function otherDevice() {
+      alert("Выбрать другую ОС для настройки");
+    }
+  </script>
+</body>
+</html>

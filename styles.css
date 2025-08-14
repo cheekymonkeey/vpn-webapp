@@ -1,0 +1,139 @@
+:root {
+    --bg-color: var(--tg-theme-bg-color, #121212);
+    --text-color: var(--tg-theme-text-color, #ffffff);
+    --btn-color: var(--tg-theme-button-color, #3390ec);
+    --btn-text-color: var(--tg-theme-button-text-color, #ffffff);
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 25px 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .subscription-status {
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .btn-primary {
+    background-color: var(--btn-color);
+    color: var(--btn-text-color);
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .row-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .row-buttons .btn-secondary {
+    flex: 1;
+    background-color: #2a2a2a;
+  }
+
+  .title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  .tariff-options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+  
+  .tariff-btn {
+    padding: 12px;
+    font-size: 15px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .tariff-btn.selected {
+    background-color: var(--btn-color);
+    color: var(--btn-text-color);
+    font-weight: bold;
+    border-color: transparent;
+  }
+  
+  .range-block {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  
+  .range-block label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
+  
+  input[type="range"] {
+    width: 100%;
+  }
+  .setup-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 90vh;
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
+  
+  .gear-icon {
+    font-size: 100px;
+    opacity: 0.3;
+    margin-top: 40px;
+  }
+  
+  .bottom-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+    

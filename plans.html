@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Выбор тарифа</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2 class="title">Выберите тариф</h2>
+
+      <div class="tariff-options">
+        <button class="tariff-btn">1 месяц</button>
+        <button class="tariff-btn">3 месяца</button>
+        <button class="tariff-btn">6 месяцев</button>
+        <button class="tariff-btn">12 месяцев</button>
+      </div>
+
+      <div class="range-block">
+        <label for="deviceRange">Количество устройств: 
+          <span id="deviceCount">1</span>
+        </label>
+        <input type="range" id="deviceRange" min="1" max="5" value="1" />
+      </div>
+
+      <button id="proceedBtn" class="btn btn-primary">Продолжить</button>
+    </div>
+  </div>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
